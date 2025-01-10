@@ -6,12 +6,12 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: dc82b6c7da587f5e7876da455ceaceaba3006957a25442e5f2a5bd3419a3f8e5
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: "{{ PYTHON }} -m pip install . -vv"
 
 requirements:
@@ -19,14 +19,16 @@ requirements:
     - nodejs
     - yarn
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pip
     - jupyter-packaging
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - ipywidgets >=7.0.0
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - ipannotoryous
   commands:
